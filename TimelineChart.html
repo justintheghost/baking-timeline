@@ -6,26 +6,38 @@
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var container = document.getElementById('timeline');
+        var container = document.getElementById('timeline-tooltip');
         var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.DataTable();
-
-        dataTable.addColumn({ type: 'string', id: 'President' });
-        dataTable.addColumn({ type: 'datetime', id: 'Start' });
-        dataTable.addColumn({ type: 'datetime', id: 'End' });
-        dataTable.addRows([
-        //   [ 'Washington', new Date(1789, 3, 30), new Date(1797, 2, 4) ],
-        //   [ 'Adams',      new Date(1797, 2, 4),  new Date(1801, 2, 4) ],
-        //   [ 'Jefferson',  new Date(1801, 2, 4),  new Date(1809, 2, 4) ],
-          [ 'Now',  new Date(2022, 01, 31, 22, 50, 59, 999),  new Date(2022, 01, 31, 23, 59, 59, 999)]
+        var dataTable = new google.visualization.DataTable();    
+        var options = {
+          timeline: { 
+              showRowLabels: true 
+              , groupByRowLabel: false
+              , singleColor: '#00008b'
+            }
+        };
+        
+        dataTable.addColumn({ type: 'string', id: 'Action' });
+        dataTable.addColumn({ type: 'string', id: 'Dummy' });
+        dataTable.addColumn({ type: 'string', role: 'tooltip' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });        
+        dataTable.addRows([        
+          [ 'Feed Starter', null, 'Active', new Date(2022, 01, 23, 21, 00, 00, 000),  new Date(2022, 01, 23, 21, 00, 05, 000)],
+          [ 'Rest at room temperature', null, '<h1> HIIII </h1>', new Date(2022, 01, 23, 21, 00, 00, 000),  new Date(2022, 01, 24, 07, 30, 00, 000)],
+          [ 'Feed Starter', null, 'Active',  new Date(2022, 01, 24, 07, 30, 00, 000),  new Date(2022, 01, 24, 07, 30, 05, 000)],
+          [ 'Mix Starter', null, 'Active', new Date(2022, 01, 24, 11, 00, 00, 000),  new Date(2022, 01, 24, 11, 00, 05, 000)],
+          [ 'Autolyse at room temp', null, 'Inactive', new Date(2022, 01, 24, 11, 00, 00, 000),  new Date(2022, 01, 24, 11, 45, 00, 000)]
         ]);
 
-        chart.draw(dataTable);
+    
+
+        chart.draw(dataTable, options);
       }
 
     </script>
   </head>
   <body>
-    <div id="timeline" style="height: 180px;"></div>
+    <div id="timeline-tooltip" style="height: 500px;"></div>
   </body>
 </html>
